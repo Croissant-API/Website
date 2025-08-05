@@ -6,6 +6,8 @@ import type { AppProps } from "next/app";
 import MetaLinks from "../components/common/MetaLinks";
 import Footer from "../components/common/Footer";
 import ImagePreloader from "../components/utils/ImagePreloader";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
 import { useEffect, useState } from "react";
 import LauncherNavbar from "./launcher/components/Navbar";
@@ -50,6 +52,36 @@ const launcherTitleStyle: React.CSSProperties = {
   right: "10px",
 };
 
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#333",
+    },
+    background: {
+      default: "#18181b",
+      paper: "#23232a",
+    },
+    text: {
+      primary: "#ffffff",
+      secondary: "#888888",
+    },
+    warning: {
+      main: "#ffd700", // var(--gold-color)
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 6,
+          textTransform: "none",
+        },
+      },
+    },
+  },
+});
+
 function AppContent({ Component, pageProps }: AppProps) {
   const [isLauncher, setIsLauncher] = useState(false);
   const { user } = useAuth();
@@ -60,18 +92,18 @@ function AppContent({ Component, pageProps }: AppProps) {
     setMainStyle(
       window.location.href.includes("/oauth2/auth")
         ? {
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "0",
-          margin: "auto",
-          height: "calc(100vh - 30px)",
-          top: "0",
-          left: "0",
-          right: "0",
-          bottom: "0",
-          position: "fixed",
-        }
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "0",
+            margin: "auto",
+            height: "calc(100vh - 30px)",
+            top: "0",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            position: "fixed",
+          }
         : {}
     );
   }, []);
@@ -205,14 +237,17 @@ function AppContent({ Component, pageProps }: AppProps) {
 
 export default function App(props: AppProps) {
   return (
-    <ImageCacheProvider>
-      <UserCacheProvider>
-        <AuthProvider>
-          <LobbyProvider>
-            <AppContent {...props} />
-          </LobbyProvider>
-        </AuthProvider>
-      </UserCacheProvider>
-    </ImageCacheProvider>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <ImageCacheProvider>
+        <UserCacheProvider>
+          <AuthProvider>
+            <LobbyProvider>
+              <AppContent {...props} />
+            </LobbyProvider>
+          </AuthProvider>
+        </UserCacheProvider>
+      </ImageCacheProvider>
+    </ThemeProvider>
   );
 }

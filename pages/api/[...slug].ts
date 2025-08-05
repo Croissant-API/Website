@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const API_URL = "http://localhost:3456";
+// const API_URL = "http://localhost:3456";
+const API_URL = "https://croissant-api.fr/api";
 
 export const config = {
   api: {

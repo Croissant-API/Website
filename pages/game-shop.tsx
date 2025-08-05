@@ -6,6 +6,7 @@ import router, { useRouter } from "next/router";
 import CachedImage from "../components/utils/CachedImage";
 import useIsMobile from "../hooks/useIsMobile";
 import Certification from "../components/common/Certification";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Alert } from "@mui/material";
 
 const ENDPOINT = "/api";
 
@@ -535,37 +536,77 @@ function ShopDesktop(props: any) {
       </div>
       {/* Prompt overlay for games */}
       {prompt && (
-        <div className="shop-prompt-overlay">
-          <div className="shop-prompt">
-            <div className="shop-prompt-message">{prompt.message}</div>
-            <button
-              className="shop-prompt-buy-btn"
+        <Dialog
+          open={!!prompt}
+          onClose={() => handlePromptResult(false)}
+          PaperProps={{
+            style: {
+              background: "var(--background-medium)",
+              color: "var(--text-color-primary)",
+              borderRadius: 12,
+              boxShadow: "0 2px 12px rgba(0,0,0,0.4)",
+              minWidth: 320,
+            }
+          }}
+        >
+          <DialogTitle style={{ color: "var(--text-color-primary)" }}>Confirmation</DialogTitle>
+          <DialogContent>
+            <DialogContentText style={{ color: "var(--text-color-primary)", fontSize: 18 }}>
+              {prompt.message}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              variant="contained"
+              color="success"
               onClick={() => handlePromptResult(true)}
+              style={{ fontWeight: 700, background: "#4caf50", color: "#fff", borderRadius: 4 }}
             >
               Buy
-            </button>
-            <button
-              className="shop-prompt-cancel-btn"
+            </Button>
+            <Button
+              variant="contained"
+              color="error"
               onClick={() => handlePromptResult(false)}
+              style={{ fontWeight: 700, background: "#f44336", color: "#fff", borderRadius: 4 }}
             >
               Cancel
-            </button>
-          </div>
-        </div>
+            </Button>
+          </DialogActions>
+        </Dialog>
       )}
       {/* Alert overlay */}
       {alert && (
-        <div className="shop-alert-overlay">
-          <div className="shop-alert">
-            <div className="shop-alert-message">{alert.message}</div>
-            <button
-              className="shop-alert-ok-btn"
+        <Dialog
+          open={!!alert}
+          onClose={() => setAlert(null)}
+          PaperProps={{
+            style: {
+              background: "var(--background-medium)",
+              color: "var(--text-color-primary)",
+              borderRadius: 12,
+              boxShadow: "0 2px 12px rgba(0,0,0,0.4)",
+              minWidth: 320,
+            }
+          }}
+        >
+          <DialogTitle style={{ color: "var(--text-color-primary)" }}>Alert</DialogTitle>
+          <DialogContent>
+            <Alert severity="error" style={{ background: "transparent", color: "var(--error-color)", fontWeight: 700 }}>
+              {alert.message}
+            </Alert>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              variant="contained"
+              color="success"
               onClick={() => setAlert(null)}
+              style={{ fontWeight: 700, background: "#4caf50", color: "#fff", borderRadius: 4 }}
             >
               OK
-            </button>
-          </div>
-        </div>
+            </Button>
+          </DialogActions>
+        </Dialog>
       )}
     </div>
   );
@@ -814,37 +855,77 @@ function ShopMobile(props: any) {
       </div>
       {/* Prompt overlay for games */}
       {prompt && (
-        <div className="shop-prompt-overlay">
-          <div className="shop-prompt">
-            <div className="shop-prompt-message">{prompt.message}</div>
-            <button
-              className="shop-prompt-buy-btn"
+        <Dialog
+          open={!!prompt}
+          onClose={() => handlePromptResult(false)}
+          PaperProps={{
+            style: {
+              background: "var(--background-medium)",
+              color: "var(--text-color-primary)",
+              borderRadius: 12,
+              boxShadow: "0 2px 12px rgba(0,0,0,0.4)",
+              minWidth: 320,
+            }
+          }}
+        >
+          <DialogTitle style={{ color: "var(--text-color-primary)" }}>Confirmation</DialogTitle>
+          <DialogContent>
+            <DialogContentText style={{ color: "var(--text-color-primary)", fontSize: 18 }}>
+              {prompt.message}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              variant="contained"
+              color="success"
               onClick={() => handlePromptResult(true)}
+              style={{ fontWeight: 700, background: "#4caf50", color: "#fff", borderRadius: 4 }}
             >
               Buy
-            </button>
-            <button
-              className="shop-prompt-cancel-btn"
+            </Button>
+            <Button
+              variant="contained"
+              color="error"
               onClick={() => handlePromptResult(false)}
+              style={{ fontWeight: 700, background: "#f44336", color: "#fff", borderRadius: 4 }}
             >
               Cancel
-            </button>
-          </div>
-        </div>
+            </Button>
+          </DialogActions>
+        </Dialog>
       )}
       {/* Alert overlay */}
       {alert && (
-        <div className="shop-alert-overlay">
-          <div className="shop-alert">
-            <div className="shop-alert-message">{alert.message}</div>
-            <button
-              className="shop-alert-ok-btn"
+        <Dialog
+          open={!!alert}
+          onClose={() => setAlert(null)}
+          PaperProps={{
+            style: {
+              background: "var(--background-medium)",
+              color: "var(--text-color-primary)",
+              borderRadius: 12,
+              boxShadow: "0 2px 12px rgba(0,0,0,0.4)",
+              minWidth: 320,
+            }
+          }}
+        >
+          <DialogTitle style={{ color: "var(--text-color-primary)" }}>Alert</DialogTitle>
+          <DialogContent>
+            <Alert severity="error" style={{ background: "transparent", color: "var(--error-color)", fontWeight: 700 }}>
+              {alert.message}
+            </Alert>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              variant="contained"
+              color="success"
               onClick={() => setAlert(null)}
+              style={{ fontWeight: 700, background: "#4caf50", color: "#fff", borderRadius: 4 }}
             >
               OK
-            </button>
-          </div>
-        </div>
+            </Button>
+          </DialogActions>
+        </Dialog>
       )}
     </div>
   );
